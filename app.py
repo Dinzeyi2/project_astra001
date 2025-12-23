@@ -56,6 +56,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.pool import QueuePool
 from sqlalchemy.exc import OperationalError
+from sqlalchemy import create_engine, text
+
 
 # Redis
 try:
@@ -291,7 +293,7 @@ class StorageBackend:
                 
                 # Test connection
                 with self.engine.connect() as conn:
-                    conn.execute("SELECT 1")
+                    conn.execute(text("SELECT 1"))
                 
                 self.Session = scoped_session(sessionmaker(bind=self.engine))
                 self.use_db = True
