@@ -136,7 +136,7 @@ class StateSnapshotModel(Base):
     agent_id = Column(String(255), nullable=False, index=True)
     timestamp = Column(Float, nullable=False, index=True)
     state_data = Column(JSON, nullable=False)
-    metadata = Column(JSON, nullable=True)
+    snapshot_metadata = Column(JSON, nullable=True)
     checksum = Column(String(64), nullable=False)
     
     __table_args__ = (
@@ -338,7 +338,7 @@ class StorageBackend:
                 agent_id=snapshot.agent_id,
                 timestamp=snapshot.timestamp,
                 state_data=snapshot.state_data,
-                metadata=snapshot.metadata,
+                snapshot_metadata=snapshot.metadata,
                 checksum=snapshot.checksum
             )
             session.add(model)
@@ -408,7 +408,7 @@ class StorageBackend:
                 agent_id=model.agent_id,
                 timestamp=model.timestamp,
                 state_data=model.state_data,
-                metadata=model.metadata,
+                metadata=model.snapshot_metadat,
                 checksum=model.checksum
             )
         except Exception as e:
